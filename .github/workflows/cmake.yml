@@ -21,18 +21,15 @@ jobs:
     - uses: actions/checkout@v3
 
     - name: Install deps
-      run: sudo apt install -y git python3 cmake clang freeglut3-dev libasound2-dev libcurl4-openssl-dev libfreetype6-dev libjack-jackd2-dev libx11-dev libxcomposite-dev libxcursor-dev libxinerama-dev libxrandr-dev mesa-common-dev libwebkit2gtk-4.0-dev ladspa-sdk
+      run: sudo apt install -qyy git python3 cmake clang freeglut3-dev libasound2-dev libcurl4-openssl-dev libfreetype6-dev
+        libjack-jackd2-dev libx11-dev libxcomposite-dev libxcursor-dev libxinerama-dev libxrandr-dev mesa-common-dev libwebkit2gtk-4.0-dev ladspa-sdk
       
 
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
       # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
       # run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
-      run: python ci/all.py
-
-    - name: Build
-      # Build your program with the given configuration
-      run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+      run: python ci/build.py
 
     - name: Test
       working-directory: ${{github.workspace}}/build
