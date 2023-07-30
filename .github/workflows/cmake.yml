@@ -28,7 +28,10 @@ jobs:
       run: git submodule update --init --recursive
       
     - name: FRUT
-      run: mkdir -p sdks/frut/build && cd sdks/frut/build
+      run: mkdir -p sdks/frut/build
+    
+    - name: cd
+      run: cd sdks/frut/build
       
     - name: cmake conf
       run: cmake .. -DCMAKE_INSTALL_PREFIX=../prefix -DJUCE_ROOT=../../juce -DJUCER_CXX_LANGUAGE_STANDARD=17
@@ -37,7 +40,11 @@ jobs:
       run: cmake --build . --target install
       
     - name: build pre
-      run: cd ../../..; mkdir build; cd build
+      run: cd ../../..
+    - name: mkdir
+      run: mkdir build
+    - name: cd
+      run: cd build
       
     - name: build
       run: cmake .. -A x64 -DCMAKE_BUILD_TYPE=Debug
