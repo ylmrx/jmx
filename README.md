@@ -1,19 +1,8 @@
-<p align="center">
-  <img src="ext/meeblip-controller-banner.png" height="150" title="Meeblip Controller Banner">
-</p>
+# Goal
 
-[![Build Status Travis-CI](https://travis-ci.org/rclement/meeblip-controller.svg)](https://travis-ci.org/rclement/meeblip-controller)
-[![Build status AppVeyor](https://ci.appveyor.com/api/projects/status/ub29w4jlrih593ox?svg=true)](https://ci.appveyor.com/project/rclement/meeblip-controller)
+This forks stays very similar to meeblip. it just controls Airbase99 instead.
 
-> Take full control over your Meeblip Anode!
-
-`Meeblip Controller` is a real-time MIDI controller for the [Meeblip Anode](https://meeblip.com/products/meeblip-anode-synth) synthesizer,
-available on MacOS and Windows as an audio plug-in (VST, VST3, AU) and a standalone app.
-
-<p align="center">
-  <img src="ext/meeblip-controller-screenshot.png" height="650" title="Meeblip Controller Screenshot">
-</p>
-
+VST2 total recall works well.
 
 # Features
 
