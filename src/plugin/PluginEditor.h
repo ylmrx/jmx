@@ -22,7 +22,6 @@
 
 #include <plugin/PluginProcessor.h>
 #include <ui/CustomLookAndFeel.h>
-#include <ui/panels/PresetPanel.h>
 #include <ui/panels/SettingsPanel.h>
 #include <ui/panels/ControlPanelAnode.h>
 #include <JuceHeader.h>
@@ -46,7 +45,6 @@ public: // juce::Component
 
 private:
     ui::CustomLookAndFeel   mLookAndFeel;
-    ui::PresetPanel         mPresetPanel;
     ui::ControlPanelAnode   mControlPanel;
     ui::SettingsPanel       mSettingsPanel;
 

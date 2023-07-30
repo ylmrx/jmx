@@ -28,26 +28,15 @@ namespace ui {
 //==============================================================================
 
 ControlToggle::ControlToggle (grape::parameters::ParameterManager& parameterManager,
-                              common::ParameterId parameterId,
-                              const juce::String& label)
+                              common::ParameterId parameterId)
     : mParameterManager (parameterManager)
     , mParameterId (parameterId)
 {
     const auto param = common::sParameters.at (mParameterId);
-
     addAndMakeVisible (mToggle);
-
     mButtonAttachment.reset (
         new ButtonAttachment (mParameterManager, param.id, mToggle)
     );
-
-    mLabel.setFont (juce::Font (10));
-    mLabel.setJustificationType (juce::Justification::centred);
-    mLabel.setText (
-        label == juce::String() ? param.name.toUpperCase() : label,
-        juce::NotificationType::dontSendNotification
-    );
-    addAndMakeVisible (mLabel);
 }
 
 ControlToggle::~ControlToggle()
@@ -60,21 +49,12 @@ ControlToggle::~ControlToggle()
 void ControlToggle::resized()
 {
     static const auto sTextBoxHeight = 20;
-
     const auto bounds = getLocalBounds();
-
     mToggle.setBounds (
         bounds.getX(),
         bounds.getY(),
         bounds.getWidth(),
         bounds.getHeight() - sTextBoxHeight
-    );
-
-    mLabel.setBounds (
-        mToggle.getX(),
-        mToggle.getBottom(),
-        mToggle.getWidth(),
-        sTextBoxHeight
     );
 }
 

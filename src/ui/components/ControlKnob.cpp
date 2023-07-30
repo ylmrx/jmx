@@ -41,11 +41,9 @@ ControlKnob::ControlKnob (grape::parameters::ParameterManager& parameterManager,
     mSlider.setPopupDisplayEnabled (false, false, nullptr);
     addAndMakeVisible (mSlider);
 
-    mSliderAttachment.reset (
-        new SliderAttachment (mParameterManager, param.id, mSlider)
-    );
+    mSliderAttachment.reset (new SliderAttachment (mParameterManager, param.id, mSlider));
 
-    mLabel.setFont (juce::Font (10));
+    mLabel.setFont (juce::Font (9));
     mLabel.setJustificationType (juce::Justification::centred);
     mLabel.setText (
         label == juce::String() ? param.name.toUpperCase() : label,
@@ -63,7 +61,7 @@ ControlKnob::~ControlKnob()
 
 void ControlKnob::resized()
 {
-    static const auto sLabelHeight = 20;
+    static const auto sLabelHeight = 15;
 
     const auto bounds = getLocalBounds();
 

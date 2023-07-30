@@ -38,7 +38,7 @@ PluginProcessor::PluginProcessor()
       )
     , mUndoManager()
     , mParameterManager (*this, &mUndoManager, common::sOrderedParameters)
-    , mPresetManager (mParameterManager)
+    // , mPresetManager (mParameterManager)
     , mSettingManager (common::sOrderedSettings, nullptr)
     , mMidiController (mParameterManager,
                        mSettingManager,
@@ -93,30 +93,21 @@ double PluginProcessor::getTailLengthSeconds() const
 
 int PluginProcessor::getNumPrograms()
 {
-    const auto factoryPresets = mPresetManager.getFactoryPresets();
-    const int numPrograms = factoryPresets.size();
-    return numPrograms > 0 ? numPrograms : 1;
+    return 1;
 }
 
 int PluginProcessor::getCurrentProgram()
 {
-    const auto factoryPresets = mPresetManager.getFactoryPresets();
-    const auto currentPreset = mPresetManager.getCurrentPreset();
-    return juce::jmax (0, factoryPresets.indexOf (currentPreset));
+    return 1;
 }
 
 void PluginProcessor::setCurrentProgram (int index)
 {
-    const auto factoryPresets = mPresetManager.getFactoryPresets();
-    const auto preset = factoryPresets[index];
-    mPresetManager.loadPreset (preset);
 }
 
 const juce::String PluginProcessor::getProgramName (int index)
 {
-    const auto factoryPresets = mPresetManager.getFactoryPresets();
-    const auto preset = factoryPresets[index];
-    return preset.getName();
+    return "";
 }
 
 void PluginProcessor::changeProgramName (int index, const juce::String& newName)
@@ -208,7 +199,7 @@ void PluginProcessor::getStateInformation (juce::MemoryBlock& destData)
     int xmlIndex = 0;
     std::unique_ptr<juce::XmlElement> xmlState (new juce::XmlElement ("state"));
     xmlState->insertChildElement (mParameterManager.toXml(), xmlIndex++);
-    xmlState->insertChildElement (mPresetManager.toXml(), xmlIndex++);
+    // xmlState->insertChildElement (mPresetManager.toXml(), xmlIndex++);
     xmlState->insertChildElement (mSettingManager.toXml(), xmlIndex++);
     copyXmlToBinary (*xmlState, destData);
 }
@@ -225,11 +216,11 @@ void PluginProcessor::setStateInformation (const void* data, int sizeInBytes)
             mParameterManager.fromXml (*xmlParameters);
         }
 
-        const auto xmlCurrentPreset = xmlState->getChildElement (xmlIndex++);
-        if (xmlCurrentPreset != nullptr)
-        {
-            mPresetManager.fromXml (*xmlCurrentPreset);
-        }
+        // const auto xmlCurrentPreset = xmlState->getChildElement (xmlIndex++);
+        // if (xmlCurrentPreset != nullptr)
+        // {
+        //     mPresetManager.fromXml (*xmlCurrentPreset);
+        // }
 
         const auto xmlSettings = xmlState->getChildElement (xmlIndex++);
         if (xmlSettings != nullptr)
@@ -237,6 +228,8 @@ void PluginProcessor::setStateInformation (const void* data, int sizeInBytes)
             mSettingManager.fromXml (*xmlSettings);
         }
     }
+    mMidiController.synchronize();
+    // ???
 }
 
 //==============================================================================

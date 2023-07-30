@@ -117,8 +117,8 @@ jucer_audio_plugin_settings(
   PLUGIN_DESCRIPTION "${APP_DESCRIPTION}"
 
   PLUGIN_MANUFACTURER "${APP_MANUFACTURER_NAME}"
-  PLUGIN_MANUFACTURER_CODE "RMNC"
-  PLUGIN_CODE "MBCT"
+  PLUGIN_MANUFACTURER_CODE "YLMX"
+  PLUGIN_CODE "JOMX"
 
   # PLUGIN_CHANNEL_CONFIGURATIONS
 
@@ -164,8 +164,6 @@ jucer_project_files("Grape/presets"
   .         .         .         "sdks/grape/grape/presets/Preset.h"
   x         .         .         "sdks/grape/grape/presets/PresetChecker.cpp"
   .         .         .         "sdks/grape/grape/presets/PresetChecker.h"
-  x         .         .         "sdks/grape/grape/presets/PresetManager.cpp"
-  .         .         .         "sdks/grape/grape/presets/PresetManager.h"
 )
 
 jucer_project_files("Grape/settings"
@@ -226,18 +224,12 @@ jucer_project_files("MeeblipController/ui"
 jucer_project_files("MeeblipController/ui/components"
 # Compile   Xcode     Binary
 #           Resource  Resource
-  x         .         .         "src/ui/components/AboutDialog.cpp"
-  .         .         .         "src/ui/components/AboutDialog.h"
   x         .         .         "src/ui/components/ControlKnob.cpp"
   .         .         .         "src/ui/components/ControlKnob.h"
   x         .         .         "src/ui/components/ControlList.cpp"
   .         .         .         "src/ui/components/ControlList.h"
   x         .         .         "src/ui/components/ControlToggle.cpp"
   .         .         .         "src/ui/components/ControlToggle.h"
-  x         .         .         "src/ui/components/PresetBar.cpp"
-  .         .         .         "src/ui/components/PresetBar.h"
-  x         .         .         "src/ui/components/PresetSaveDialog.cpp"
-  .         .         .         "src/ui/components/PresetSaveDialog.h"
 )
 
 jucer_project_files("MeeblipController/ui/panels"
@@ -245,8 +237,6 @@ jucer_project_files("MeeblipController/ui/panels"
 #           Resource  Resource
   x         .         .         "src/ui/panels/ControlPanelAnode.cpp"
   .         .         .         "src/ui/panels/ControlPanelAnode.h"
-  x         .         .         "src/ui/panels/PresetPanel.cpp"
-  .         .         .         "src/ui/panels/PresetPanel.h"
   x         .         .         "src/ui/panels/SettingsPanel.cpp"
   .         .         .         "src/ui/panels/SettingsPanel.h"
 )

@@ -1,12 +1,12 @@
-#define AppName             "${APP_NAME}"
+#define AppName             "JeeMeeX"
+
 #define AppNameUnderscore   StringChange(AppName, " ", "_")
-#define AppVersion          "${APP_VERSION}"
-#define AppPublisher        "${APP_MANUFACTURER_NAME}"
-#define AppUrl              "${APP_MANUFACTURER_URL}"
-#define AppRootDir          "${APP_ROOT_DIR}"
-#define AppBuildDir         "${APP_BUILD_DIR}"
-#define AppOutputDir        "${APP_OUTPUT_DIR}"
-#define AppOutputBaseName   "${APP_OUTPUT_BASENAME}"
+#define AppVersion          "1.0.2"
+#define AppUrl              "https://github.com/rclement/meeblip-controller"
+#define AppRootDir          "D:/Users_Directory/yoann/Documents/Repos/meeblip-controller"
+#define AppBuildDir         "D:/Users_Directory/yoann/Documents/Repos/meeblip-controller/build"
+#define AppOutputDir        "D:/Users_Directory/yoann/Documents/Repos/meeblip-controller/build/../installer/output"
+#define AppOutputBaseName   "Controller - 1.0.2 - Windows"
 
 [Setup]
 AppName                 = {#AppName}
@@ -15,9 +15,9 @@ AppVerName              = {#AppName} {#AppVersion}
 AppPublisherURL         = {#AppUrl}
 AppSupportURL           = {#AppUrl}
 AppUpdatesURL           = {#AppUrl}
-AppCopyright            = Copyright (C) 2018 {#AppPublisher}
+AppCopyright            = Copyright (C) 2018
 LicenseFile             = {#AppRootDir}\LICENSE.txt
-DefaultDirName          = {commonappdata}\{#AppPublisher}\{#AppName}
+DefaultDirName          = {commonappdata}\{#AppName}
 DisableDirPage          = yes
 DefaultGroupName        = {#AppName}
 DisableProgramGroupPage = no
@@ -26,8 +26,6 @@ OutputBaseFilename      = {#AppOutputBaseName}
 Compression             = lzma
 SolidCompression        = yes
 Uninstallable           = yes
-UninstallDisplayIcon    = {#AppBuildDir}\x64\icon.ico
-SetupIconFile           = {#AppBuildDir}\x64\icon.ico
 WizardImageFile         = {#AppRootDir}\installer\resources\innosetup-wizard-large.bmp
 WizardSmallImageFile    = {#AppRootDir}\installer\resources\innosetup-wizard-small.bmp
 
@@ -40,25 +38,19 @@ Name: "custom"; Description: "Custom installation"; Flags: iscustom
 
 [Components]
 Name: "{#AppNameUnderscore}";                           Description: "{#AppName}";                          Types: full custom;
-Name: "{#AppNameUnderscore}/standalone_32";             Description: "Standalone (32-bit)";                 Types: full custom;
 Name: "{#AppNameUnderscore}/standalone_64";             Description: "Standalone (64-bit)";                 Types: full custom; Check: IsWin64;
-Name: "{#AppNameUnderscore}/vst2_32";                   Description: "VST2 (32-bit)";                       Types: full custom;
 Name: "{#AppNameUnderscore}/vst2_64";                   Description: "VST2 (64-bit)";                       Types: full custom; Check: IsWin64;
-Name: "{#AppNameUnderscore}/vst3_32";                   Description: "VST3 (32-bit)";                       Types: full custom;
 Name: "{#AppNameUnderscore}/vst3_64";                   Description: "VST3 (64-bit)";                       Types: full custom; Check: IsWin64;
 Name: "{#AppNameUnderscore}_required";                  Description: "{#AppName} - Required Components";    Types: full custom; Flags: fixed;
 Name: "{#AppNameUnderscore}_required/licenses";         Description: "Licenses";                            Types: full custom; Flags: fixed;
 Name: "{#AppNameUnderscore}_required/factorypresets";   Description: "Factory Presets";                     Types: full custom; Flags: fixed;
 
 [Files]
-Source: "{#AppBuildDir}\Win32\Release\Standalone Plugin\{#AppName}.exe";  DestDir: "{pf32}\{#AppPublisher}\{#AppName}"; DestName: "{#AppName}.exe"; Components: {#AppNameUnderscore}/standalone_32; Flags: ignoreversion overwritereadonly uninsremovereadonly;
-Source: "{#AppBuildDir}\x64\Release\Standalone Plugin\{#AppName}.exe";    DestDir: "{pf64}\{#AppPublisher}\{#AppName}"; DestName: "{#AppName}.exe"; Components: {#AppNameUnderscore}/standalone_64; Flags: ignoreversion overwritereadonly uninsremovereadonly;
+Source: "{#AppBuildDir}\Release\Standalone Plugin\{#AppName}.exe";    DestDir: "{pf64}\{#AppName}"; DestName: "{#AppName}.exe"; Components: {#AppNameUnderscore}/standalone_64; Flags: ignoreversion overwritereadonly uninsremovereadonly;
 
-Source: "{#AppBuildDir}\Win32\Release\VST\{#AppName}.dll";    DestDir: "{pf32}\Steinberg\VstPlugins"; DestName: "{#AppName}.dll"; Components: {#AppNameUnderscore}/vst2_32; Flags: ignoreversion overwritereadonly uninsremovereadonly;
-Source: "{#AppBuildDir}\x64\Release\VST\{#AppName}.dll";      DestDir: "{pf64}\Steinberg\VstPlugins"; DestName: "{#AppName}.dll"; Components: {#AppNameUnderscore}/vst2_64; Flags: ignoreversion overwritereadonly uninsremovereadonly;
+Source: "{#AppBuildDir}\Release\VST\{#AppName}.dll";      DestDir: "{pf64}\Steinberg\VstPlugins"; DestName: "{#AppName}.dll"; Components: {#AppNameUnderscore}/vst2_64; Flags: ignoreversion overwritereadonly uninsremovereadonly;
 
-Source: "{#AppBuildDir}\Win32\Release\VST3\{#AppName}.vst3";   DestDir: "{cf32}\VST3"; DestName: "{#AppName}.vst3"; Components: {#AppNameUnderscore}/vst3_32; Flags: ignoreversion overwritereadonly uninsremovereadonly;
-Source: "{#AppBuildDir}\x64\Release\VST3\{#AppName}.vst3";     DestDir: "{cf64}\VST3"; DestName: "{#AppName}.vst3"; Components: {#AppNameUnderscore}/vst3_64; Flags: ignoreversion overwritereadonly uninsremovereadonly;
+Source: "{#AppBuildDir}\Release\VST3\{#AppName}.vst3";     DestDir: "{cf64}\VST3"; DestName: "{#AppName}.vst3"; Components: {#AppNameUnderscore}/vst3_64; Flags: ignoreversion overwritereadonly uninsremovereadonly;
 
 Source: "{#AppRootDir}\LICENSE.txt";                DestDir: "{app}\licenses";              DestName: "LICENSE.txt"; Components: {#AppNameUnderscore}_required/licenses; Flags: ignoreversion overwritereadonly uninsremovereadonly;
 Source: "{#AppRootDir}\sdks\frut\LICENSE";          DestDir: "{app}\licenses\frut";         DestName: "LICENSE.txt"; Components: {#AppNameUnderscore}_required/licenses; Flags: ignoreversion overwritereadonly uninsremovereadonly;
@@ -70,7 +62,6 @@ Source: "{#AppRootDir}\sdks\vst\LICENSE.txt";       DestDir: "{app}\licenses\vst
 Source: "{#AppRootDir}\installer\presets\*";        DestDir: "{app}\presets"; Components: {#AppNameUnderscore}_required/factorypresets; Flags: ignoreversion createallsubdirs recursesubdirs overwritereadonly uninsremovereadonly skipifsourcedoesntexist;
 
 [Icons]
-Name: "{group}\{#AppName} (32-bit)";    Filename: "{pf32}\{#AppPublisher}\{#AppName}\{#AppName}.exe";
-Name: "{group}\{#AppName} (64-bit)";    Filename: "{pf64}\{#AppPublisher}\{#AppName}\{#AppName}.exe";
+Name: "{group}\{#AppName} (64-bit)";    Filename: "{pf64}\{#AppName}\{#AppName}.exe";
 Name: "{group}\Uninstall";              Filename: "{uninstallexe}"
 

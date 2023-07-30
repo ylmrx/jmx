@@ -35,8 +35,7 @@ class ControlList : public juce::Component
 {
 public:
     ControlList (grape::parameters::ParameterManager&,
-                 common::ParameterId,
-                 const juce::String& label = juce::String());
+                 common::ParameterId);
     ~ControlList();
 
 public: // juce::Component
@@ -47,12 +46,8 @@ private:
 
     grape::parameters::ParameterManager&    mParameterManager;
     common::ParameterId                     mParameterId;
-
-    juce::Label     mLabel;
     juce::ComboBox  mComboBox;
-
     std::unique_ptr<ComboBoxAttachment> mComboBoxAttachment;
-
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ControlList)
 };
 

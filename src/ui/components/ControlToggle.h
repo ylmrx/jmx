@@ -35,8 +35,7 @@ class ControlToggle : public juce::Component
 {
 public:
     ControlToggle (grape::parameters::ParameterManager&,
-                   common::ParameterId,
-                   const juce::String& label = juce::String());
+                   common::ParameterId);
     ~ControlToggle();
 
 public: // juce::Component
@@ -44,15 +43,10 @@ public: // juce::Component
 
 private:
     typedef juce::AudioProcessorValueTreeState::ButtonAttachment ButtonAttachment;
-
     grape::parameters::ParameterManager&    mParameterManager;
     common::ParameterId                     mParameterId;
-
-    juce::Label         mLabel;
     juce::ToggleButton  mToggle;
-
     std::unique_ptr<ButtonAttachment> mButtonAttachment;
-
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ControlToggle)
 };
 

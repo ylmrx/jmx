@@ -28,23 +28,89 @@ namespace controller {
 //==============================================================================
 
 static const std::map<common::ParameterId, int> sParameterCcMapper =
-{
-    { common::ParameterId::idEnvelopeAttack,    54 },
-    { common::ParameterId::idEnvelopeDecay,     53 },
-    { common::ParameterId::idFilterCutoff,      52 },
-    { common::ParameterId::idPulseWidth,        51 },
-    { common::ParameterId::idOscillatorDetune,  50 },
-    { common::ParameterId::idLfoRate,           49 },
-    { common::ParameterId::idLfoDepth,          48 },
-    { common::ParameterId::idPortamento,        55 },
-    { common::ParameterId::idVcfEnvelopeAmount, 56 },
-    { common::ParameterId::idSustain,           64 },
-    { common::ParameterId::idOscillatorBOctave, 65 },
-    { common::ParameterId::idPWMSweep,          66 },
-    { common::ParameterId::idLfoDestination,    67 },
-    { common::ParameterId::idLfoRandom,         68 },
-    { common::ParameterId::idLfoNoteRetrigger,  69 },
-    { common::ParameterId::idOscillatorBWave,   70 },
+    {
+        {common::ParameterId::idKickTune, 100},
+        {common::ParameterId::idKickPitch, 101},
+        {common::ParameterId::idKickDecay, 102},
+        {common::ParameterId::idKickHarmonics, 103},
+        {common::ParameterId::idKickPulse, 104},
+        {common::ParameterId::idKickNoise, 105},
+        {common::ParameterId::idKickAttack, 106},
+        {common::ParameterId::idKickEq, 107},
+        {common::ParameterId::idKickLevel, 117},
+
+        {common::ParameterId::idSnareTune, 108},
+        {common::ParameterId::idSnareSnappy, 109},
+        {common::ParameterId::idSnareDecay, 110},
+        {common::ParameterId::idSnareDetune, 111},
+        {common::ParameterId::idSnareNoise, 112},
+        {common::ParameterId::idSnareLevel, 118},
+
+        {common::ParameterId::idTomLowTune, 12},
+        {common::ParameterId::idTomLowDecay, 13},
+        {common::ParameterId::idTomLowLevel, 14},
+        {common::ParameterId::idTomHighTune, 15},
+        {common::ParameterId::idTomHighDecay, 16},
+        {common::ParameterId::idTomHighLevel, 17},
+
+        {common::ParameterId::idHatSource, 62},
+        {common::ParameterId::idHatTune, 18},
+        {common::ParameterId::idHatClosedAttack, 19},
+        {common::ParameterId::idHatClosedPeaktime, 20},
+        {common::ParameterId::idHatClosedDecay, 21},
+        {common::ParameterId::idHatOpenedAttack, 22},
+        {common::ParameterId::idHatOpenedPeaktime, 23},
+        {common::ParameterId::idHatOpenedDecay, 24},
+        {common::ParameterId::idHatHPCutoff, 59},
+        {common::ParameterId::idHatLPCutoff, 60},
+        {common::ParameterId::idHatResonance, 61},
+        {common::ParameterId::idHatLevel, 25},
+
+        {common::ParameterId::idClapTune, 26},
+        {common::ParameterId::idClapAttack, 27},
+        {common::ParameterId::idClapPeaktime, 28},
+        {common::ParameterId::idClapDecay, 29},
+        {common::ParameterId::idClapLevel, 30},
+
+        {common::ParameterId::idRimshotTune, 44},
+        {common::ParameterId::idRimshotAttack, 45},
+        {common::ParameterId::idRimshotPeaktime, 46},
+        {common::ParameterId::idRimshotDecay, 47},
+        {common::ParameterId::idRimshotLevel, 48},
+
+        {common::ParameterId::idCrashTune, 49},
+        {common::ParameterId::idCrashAttack, 50},
+        {common::ParameterId::idCrashPeaktime, 51},
+        {common::ParameterId::idCrashDecay, 52},
+        {common::ParameterId::idCrashLevel, 53},
+
+        {common::ParameterId::idRideTune, 54},
+        {common::ParameterId::idRideAttack, 55},
+        {common::ParameterId::idRidePeaktime, 56},
+        {common::ParameterId::idRideDecay, 57},
+        {common::ParameterId::idRideLevel, 58},
+
+        {common::ParameterId::idHatSample, 62},
+        {common::ParameterId::idClapSample, 62},
+        {common::ParameterId::idRideSample, 62},
+        {common::ParameterId::idRimshotSample, 62},
+        {common::ParameterId::idCrashSample, 62},
+        
+        {common::ParameterId::idHatReverse, 62},
+        {common::ParameterId::idClapReverse, 62},
+        {common::ParameterId::idRideReverse, 62},
+        {common::ParameterId::idRimshotReverse, 62},
+        {common::ParameterId::idCrashReverse, 62},
+
+        {common::ParameterId::idLFO1Shape, 75},
+        {common::ParameterId::idLFO1Destination, 76},
+        {common::ParameterId::idLFO1Amplitude, 77},
+        {common::ParameterId::idLFO1Frequency, 78},
+
+        {common::ParameterId::idLFO2Shape, 79},
+        {common::ParameterId::idLFO2Destination, 80},
+        {common::ParameterId::idLFO2Amplitude, 81},
+        {common::ParameterId::idLFO2Frequency, 82},
 };
 
 //==============================================================================
@@ -57,13 +123,34 @@ static juce::MidiMessage createParameterControl (common::ParameterId paramId,
 
     const auto param = common::sParameters.at (paramId);
     const auto ccType = sParameterCcMapper.at (paramId);
-    const auto ccValue = (
-        param.isBoolean
-        ? static_cast<int> (value * 127)
-        : static_cast<int> (value)
-    );
+    float add_sample_cc = 0.0f;
+    if (ccType == 75 || ccType == 79) {
+        if (value > 3.0f) add_sample_cc = 4.0f;
+    }
+    if (ccType == 62) {
+        if(param.id == "rimshot-sample")
+            add_sample_cc = 4.0f;
+        if(param.id == "clap-sample")
+            add_sample_cc = 8.0f;
+        if(param.id == "crash-sample")
+            add_sample_cc = 12.0f;
+        if(param.id == "ride-sample")
+            add_sample_cc = 16.0f;
 
-    return juce::MidiMessage::controllerEvent (channel, ccType, ccValue);
+        if(param.id == "hat-reverse")
+            add_sample_cc = 20.0f;
+        if(param.id == "rimshot-reverse")
+            add_sample_cc = 22.0f;
+        if(param.id == "clap-reverse")
+            add_sample_cc = 24.0f;
+        if(param.id == "crash-reverse")
+            add_sample_cc = 26.0f;
+        if(param.id == "ride-reverse")
+            add_sample_cc = 28.0f;
+        if(param.id == "hat-source")
+            add_sample_cc = 32.0f;
+    }
+    return juce::MidiMessage::controllerEvent (channel, ccType, static_cast<int>(value + add_sample_cc));
 }
 
 //==============================================================================

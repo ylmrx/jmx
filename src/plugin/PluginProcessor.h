@@ -23,7 +23,7 @@
 #include <controller/MidiController.h>
 #include <JuceHeader.h>
 #include <grape/parameters/ParameterManager.h>
-#include <grape/presets/PresetManager.h>
+// #include <grape/presets/PresetManager.h>
 #include <grape/settings/SettingManager.h>
 
 //==============================================================================
@@ -42,7 +42,7 @@ public:
 public:
     inline juce::UndoManager& getUndoManager() { return mUndoManager; }
     inline grape::parameters::ParameterManager& getParameterManager() { return mParameterManager; }
-    inline grape::presets::PresetManager& getPresetManager() { return mPresetManager; }
+    // inline grape::presets::PresetManager& getPresetManager() { return mPresetManager; }
     inline grape::settings::SettingManager& getSettingManager() { return mSettingManager; }
     inline controller::MidiController& getMidiController() { return mMidiController; }
 
@@ -78,7 +78,7 @@ public: // juce::AudioProcessor
 private:
     juce::UndoManager                       mUndoManager;
     grape::parameters::ParameterManager     mParameterManager;
-    grape::presets::PresetManager           mPresetManager;
+    // grape::presets::PresetManager           mPresetManager;
     grape::settings::SettingManager         mSettingManager;
     controller::MidiController              mMidiController;
 

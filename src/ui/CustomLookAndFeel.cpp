@@ -27,12 +27,13 @@ namespace ui {
 
 //==============================================================================
 
-static const juce::LookAndFeel_V4::ColourScheme sAnodeColourScheme =
-{
-    0xff222222, 0xff333333, 0xff333333,
-    0xffffffff, 0xffffffff, 0x00000000,
-    0xffffffff, 0xffe85727, 0xffffffff
-};
+// static const juce::LookAndFeel_V4::ColourScheme sAnodeColourScheme =
+// {
+//     0xff222222, 0xff333333, 0xff333333,
+//     0xffffffff, 0xffffffff, 0x00000000,
+//     0xffffffff, 0xffe85727, 0xffffffff
+// };
+
 
 const std::map<CustomLookAndFeel::TypefaceId, CustomLookAndFeel::TypefaceData> CustomLookAndFeel::sTypefaces =
 {
@@ -62,20 +63,6 @@ const std::map<CustomLookAndFeel::TypefaceId, CustomLookAndFeel::TypefaceData> C
 
 CustomLookAndFeel::CustomLookAndFeel()
 {
-    setColourScheme (sAnodeColourScheme);
-
-    {
-        const auto& tf = sTypefaces.at (TypefaceId::typefaceMontserratRegular);
-        setDefaultSansSerifTypefaceName (tf.mName);
-        setDefaultSansSerifTypeface (tf.mPtr);
-    }
-
-    setColour (
-        juce::GroupComponent::ColourIds::textColourId,
-        getCurrentColourScheme()
-            .getUIColour (juce::LookAndFeel_V4::ColourScheme::UIColour::outline)
-            .contrasting()
-    );
 }
 
 CustomLookAndFeel::~CustomLookAndFeel()

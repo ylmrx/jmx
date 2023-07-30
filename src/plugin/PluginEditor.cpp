@@ -30,18 +30,18 @@ namespace plugin {
 
 PluginEditor::PluginEditor (PluginProcessor& processor)
     : AudioProcessorEditor (&processor)
-    , mPresetPanel (processor.getPresetManager(), processor.getUndoManager())
+    // , mPresetPanel (processor.getPresetManager(), processor.getUndoManager())
     , mControlPanel (processor.getParameterManager(),
                      processor.getMidiController())
     , mSettingsPanel (processor.getMidiController())
 {
     juce::LookAndFeel::setDefaultLookAndFeel (&mLookAndFeel);
 
-    addAndMakeVisible (mPresetPanel);
+    // addAndMakeVisible (mPresetPanel);
     addAndMakeVisible (mControlPanel);
     addAndMakeVisible (mSettingsPanel);
 
-    setSize (450, 600);
+    setSize (420, 1500);
 }
 
 PluginEditor::~PluginEditor()
@@ -64,17 +64,18 @@ void PluginEditor::resized()
     const auto panelWidth       = bounds.getWidth();
     const auto controlHeight    = bounds.getHeight() - sPanelHeight * 2;
 
-    mPresetPanel.setBounds (0, 0, panelWidth, sPanelHeight);
+    // mPresetPanel.setBounds (0, 0, panelWidth, sPanelHeight);
 
-    mControlPanel.setBounds (
-        mPresetPanel.getX(),
-        mPresetPanel.getBottom(),
+    mControlPanel.setBounds ( 0, 0,
+        // mPresetPanel.getX(),
+        // mPresetPanel.getBottom(),
         panelWidth,
         controlHeight
     );
 
     mSettingsPanel.setBounds (
-        mPresetPanel.getX(),
+        // mPresetPanel.getX(),
+        0,
         mControlPanel.getBottom(),
         panelWidth,
         sPanelHeight

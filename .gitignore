@@ -48,3 +48,12 @@ Thumbs.db
 
 # Editors
 *.swp
+
+.vs
+ALL_BUILD.*
+ZERO_CHECK.*
+CMakeFiles/
+Debug/
+Release/
+JeeMeex_*
+x64/

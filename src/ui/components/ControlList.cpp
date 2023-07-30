@@ -28,8 +28,8 @@ namespace ui {
 //==============================================================================
 
 ControlList::ControlList (grape::parameters::ParameterManager& parameterManager,
-                          common::ParameterId parameterId,
-                          const juce::String& label)
+                          common::ParameterId parameterId)
+                        //   const juce::String& label)
     : mParameterManager (parameterManager)
     , mParameterId (parameterId)
 {
@@ -61,13 +61,13 @@ ControlList::ControlList (grape::parameters::ParameterManager& parameterManager,
         new ComboBoxAttachment (mParameterManager, param.id, mComboBox)
     );
 
-    mLabel.setFont (juce::Font (10));
-    mLabel.setJustificationType (juce::Justification::centred);
-    mLabel.setText (
-        label == juce::String() ? param.name.toUpperCase() : label,
-        juce::NotificationType::dontSendNotification
-    );
-    addAndMakeVisible (mLabel);
+    // mLabel.setFont (juce::Font (10));
+    // mLabel.setJustificationType (juce::Justification::centred);
+    // mLabel.setText (
+        // label == juce::String() ? param.name.toUpperCase() : label,
+        // juce::NotificationType::dontSendNotification
+    // );
+    // addAndMakeVisible (mLabel);
 }
 
 ControlList::~ControlList()
@@ -91,12 +91,12 @@ void ControlList::resized()
         sComboBoxHeight
     );
 
-    mLabel.setBounds (
-        mComboBox.getX(),
-        bounds.getBottom() - sTextBoxHeight,
-        mComboBox.getWidth(),
-        sTextBoxHeight
-    );
+    // mLabel.setBounds (
+    //     mComboBox.getX(),
+    //     bounds.getBottom() - sTextBoxHeight,
+    //     mComboBox.getWidth(),
+    //     sTextBoxHeight
+    // );
 }
 
 //==============================================================================
